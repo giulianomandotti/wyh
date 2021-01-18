@@ -1,0 +1,1 @@
+web: gunicorn wyh_project.wsgi --log-file -

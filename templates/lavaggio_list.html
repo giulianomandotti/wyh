@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Lavaggi{% endblock title %}
+
+{% block content %}
+  {% for lavaggio in object_list %}
+    <div class="card">
+      <div class="card-header">
+        <span class="font-weight-bold">{{ lavaggio.numero }}</span> &middot;
+        <span class="text-muted">by {{ lavaggio.utente }} | {{ lavaggio.date }}</span>
+      </div>
+      <div class="card-body">
+        {{ lavaggio.body }}
+      </div>
+      <div class="card-footer text-center text-muted">
+        <a href="{% url 'lavaggio_edit' article.pk %}">Edit</a> |
+        <a href="{% url 'lavaggio_delete' article.pk %}">Delete</a>
+      </div>
+    </div>
+    <br />
+  {% endfor %}
+{% endblock content %}

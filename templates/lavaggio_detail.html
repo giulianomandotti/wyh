@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="article-entry">
+    <h2>{{ object.numero }}</h2>
+    <p>by {{ object.utente }} | {{ object.date }}</p>
+    <p>{{ object.kpi }}</p>
+  </div>
+
+  <p><a href="{% url 'lavaggio_edit' article.pk %}">Edit</a> |
+    <a href="{% url 'lavaggio_delete' article.pk %}">Delete</a></p>
+  <p>Back to <a href="{% url 'lavaggio_list' %}">Tutti i lavaggio</a>.</p>
+{% endblock content %}
