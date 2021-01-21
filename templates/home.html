@@ -6,11 +6,15 @@
 {% endblock title %}
 {% block content %}
     {% if user.is_authenticated %}
-        Hi {{ user.username }}!
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
-<button id="btn-start-recording">Start Recording</button>
-
-<button id="btn-stop-recording" disabled>Stop Recording</button>
+ <h2 class="display-4"> Ciao {{ user.username }}!</h2>
+    <div class="jumbotron">
+       <video style="display:block; margin: 0 auto;" controls autoplay playsinline></video>
+        <!--<p><a href="{% url 'logout' %}">Log Out</a></p>-->
+    </div>
+ <div class="wrapperRec">
+     <button class="btn btn-success" id="btn-start-recording">Start</button>
+<button class="btn btn-danger" id="btn-stop-recording" disabled>Stop</button>
+ </div>
     {% else %}
          <div class="jumbotron">
         <h1 class="display-4">Wash Your Hands app</h1>
@@ -22,6 +26,3 @@
         <a href="{% url 'login' %}">Log In</a> | <a href="{% url 'signup' %}">Sign Up</a>
     {% endif %}
 {% endblock content %}
-<script>
-
-</script>
