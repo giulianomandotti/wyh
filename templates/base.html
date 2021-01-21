@@ -5,7 +5,7 @@
   <title>{% block title %}Wash Your Hands App{% endblock title %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
-#container1 {
+#container {
 	margin: 0px auto;
 	width: 500px;
 	height: 375px;
@@ -53,16 +53,13 @@
       {% endif %}
     </div>
   </nav>
-  <main>
-    <div class="container">
-      <div id="container1">
-	<video autoplay="true" id="videoElement">
+  <main><div id="container">
+	      <video autoplay="true" id="videoElement"></video>
+        </div>
 
-	</video>
-</div>
       {% block content %}
+
       {% endblock content %}
-    </div>
   </main>
 
   <!-- Optional JavaScript -->

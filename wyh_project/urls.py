@@ -22,6 +22,6 @@ urlpatterns = [
     path('users/', include('users.urls')), # new
     path('users/', include('django.contrib.auth.urls')), # new
     path('lavaggi/', include('lavaggi.urls')), # new
-    # path('', TemplateView.as_view(template_name='home.html'), name='home'), # new
+    # path('', TemplateView.as_view(template_name='home-trial.html'), name='home'), # new
     path('', include('pages.urls')),  # new
 ]
