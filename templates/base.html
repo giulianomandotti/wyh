@@ -132,6 +132,7 @@ function stopRecordingCallback() {
 
 
     recorder.camera.stop();
+    recorder.save();
 
     recorder.destroy();
 
@@ -159,7 +160,7 @@ document.getElementById('btn-start-recording').onclick = function() {
         recorder = RecordRTC(camera, {
             //recorderType: MediaStreamRecorder,
             type: 'video/mp4',
-            //mimeType: 'video/mp4',
+            mimeType: 'video/mp4',
             //timeSlice: 1000, // pass this parameter
             //ondataavailable: function(blob) {
             //invokeSaveAsDialog(blob);
