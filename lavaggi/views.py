@@ -23,12 +23,20 @@ class LavaggioUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView): #
     template_name = 'lavaggio_edit.html'
     login_url = 'login'
 
+    def test_func(self):  # new
+        obj = self.get_object()
+        return obj.utente == self.request.user
+
 
 class LavaggioDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView): # new
     model = Lavaggio
     template_name = 'lavaggio_delete.html'
     success_url = reverse_lazy('lavaggio_list')
     login_url = 'login'
+
+    def test_func(self):  # new
+        obj = self.get_object()
+        return obj.utente == self.request.user
 
 
 class LavaggioCreateView(LoginRequiredMixin, CreateView): # new
