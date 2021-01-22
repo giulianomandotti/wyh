@@ -37,6 +37,6 @@ class LavaggioCreateView(LoginRequiredMixin, CreateView): # new
     fields = ('numero', 'kpi')
     login_url = 'login'
 
-def form_valid(self, form): # new
-    form.instance.utente = self.request.user
-    return super().form_valid(form)
+    def form_valid(self, form): # new
+        form.instance.utente = self.request.user
+        return super().form_valid(form)

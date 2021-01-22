@@ -7,7 +7,7 @@
     <p>{{ object.kpi }}</p>
   </div>
 
-  <p><a href="{% url 'lavaggio_edit' article.pk %}">Edit</a> |
-    <a href="{% url 'lavaggio_delete' article.pk %}">Delete</a></p>
+  <p><a href="{% url 'lavaggio_edit' lavaggio.pk %}">Edit</a> |
+    <a href="{% url 'lavaggio_delete' lavaggio.pk %}">Delete</a></p>
   <p>Back to <a href="{% url 'lavaggio_list' %}">Tutti i lavaggio</a>.</p>
 {% endblock content %}
