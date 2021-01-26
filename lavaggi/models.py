@@ -7,8 +7,9 @@ from django.urls import reverse
 class Lavaggio(models.Model):
     numero = models.CharField(max_length=255)
     kpi = models.TextField()
+    video_lavaggio = models.FileField(upload_to="store_wash/")
     esito = models.CharField(max_length=255)
-    date = models.DateTimeField(auto_now_add=True)
+    data_lavaggio = models.DateTimeField(auto_now_add=True)
     utente = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,

@@ -73,6 +73,31 @@
       {% block content %}
 
       {% endblock content %}
+     <div class="row">
+      <div class="col-3">
+      </div>
+      <div class="col-6">
+    {% block pagination %}
+  {% if is_paginated %}
+    <div class="pagination">
+      <span class="page-links">
+        {% if page_obj.has_previous %}
+          <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Precedente</a>
+        {% endif %}
+        <span class="page-current">
+          <p>Pagina {{ page_obj.number }} di {{ page_obj.paginator.num_pages }}.</p>
+        </span>
+        {% if page_obj.has_next %}
+          <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Successivo</a>
+        {% endif %}
+      </span>
+    </div>
+        </div>
+  {% endif %}
+{% endblock %}
+        <div class="col-3">
+      </div>
+      </div>
   </main>
 
   <!-- Optional JavaScript -->

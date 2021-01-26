@@ -5,11 +5,11 @@ from django.urls import reverse_lazy # new
 from .models import Lavaggio
 
 
-class LavaggioListView(ListView):
+class LavaggioListView(LoginRequiredMixin,ListView):
     model = Lavaggio
     template_name = 'lavaggio_list.html'
     login_url = 'login'
-
+    paginate_by = 5
 
 class LavaggioDetailView(DetailView): # new
     model = Lavaggio
