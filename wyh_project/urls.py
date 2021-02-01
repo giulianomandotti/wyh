@@ -15,13 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 from django.views.generic.base import TemplateView # new
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('backend/', admin.site.urls),   # 'admin/' rischioso, modificare per motivi di sicurezza
     path('users/', include('users.urls')), # new
     path('users/', include('django.contrib.auth.urls')), # new
     path('lavaggi/', include('lavaggi.urls')), # new
     # path('', TemplateView.as_view(template_name='home-trial.html'), name='home'), # new
     path('', include('pages.urls')),  # new
 ]
+
+"""
+if settings.DEBUG:
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+"""

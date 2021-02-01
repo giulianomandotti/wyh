@@ -13,6 +13,24 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 
+
+
+# Environment settings for security base level. deve essere prima di base_dir
+# ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production') #development-production
+
+# production
+# if ENVIRONMENT == 'production':
+#    SECURE_BROWSER_XSS_FILTER = True # XSS protection
+#    X_FRAME_OPTIONS = 'DENY'   # clickjacking protection
+#    SECURE_SSL_REDIRECT = True # redirect non https to https
+#    SECURE_HSTS_SECONDS = 3600  # = un ora, 314,536,000 = un anno
+#    SECURE_HSTS_INCLUDE_SUBDOMAINS = True  #
+#    SECURE_HSTS_PRELOAD = True  #
+#    SECURE_CONTENT_TYPE_NOSNIFF = True  #
+#    SESSION_COOKIE_SECURE = True #
+#    CSRF_COOKIE_SECURE = True #
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +45,9 @@ SECRET_KEY = '%4orarb&m!m@7=j7jcbfgu+yzgxz-l6ojng_yj4z=9rcp!cbqy'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
+# for security concerns it is best using:
+# ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
