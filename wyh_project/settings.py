@@ -44,6 +44,27 @@ SECRET_KEY = '%4orarb&m!m@7=j7jcbfgu+yzgxz-l6ojng_yj4z=9rcp!cbqy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'app.log'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG')
+        },
+    }
+}
+
 ALLOWED_HOSTS = ['*']
 
 # for security concerns it is best using:
