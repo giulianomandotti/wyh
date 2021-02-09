@@ -1,0 +1,27 @@
+
+
+{% block title %}Lavaggi{% endblock title %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <h5> Ciao {{ user.username }}!</h5>
+<form action="#" method="get">
+ <input type="text" value="8" name="mytextbox" size="1"/>
+ <input type="submit" class="btn" value="Click" name="btnstart">
+</form>
+
+
+    {% endif %}
+</br>
+ <div class="row">
+      <div class="col-3">
+      </div>
+
+
+      <div class="col-3">
+      </div>
+       </br>
+  {% endfor %}
+     </div>
+ </div>
+{% endblock content %}

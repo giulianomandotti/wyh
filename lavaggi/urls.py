@@ -5,6 +5,8 @@ from .views import (
     LavaggioDetailView, # new
     LavaggioDeleteView, # new
     LavaggioCreateView, # new
+    LavaggioCameoView,
+    LavaggioCapture
 )
 
 urlpatterns = [
@@ -15,5 +17,7 @@ urlpatterns = [
     path('<int:pk>/delete/',
          LavaggioDeleteView.as_view(), name='lavaggio_delete'), # new
     path('new/', LavaggioCreateView.as_view(), name='lavaggio_new'), # new
+    path('cameo/', LavaggioCameoView, name='lavaggio_cameo'),
+    path('capture/', LavaggioCapture, name='lavaggio_capture'),
     path('', LavaggioListView.as_view(), name='lavaggio_list'),
 ]
