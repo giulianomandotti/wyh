@@ -3,11 +3,13 @@ from django.views.generic import ListView, DetailView # new
 from django.views.generic.edit import UpdateView, DeleteView, CreateView # new
 from django.urls import reverse_lazy # new
 
-from .models import Lavaggio
-from .cameo import *
+from django.http import StreamingHttpResponse
+from camera import VideoCamera, gen
 from django.shortcuts import render
-import matplotlib.pyplot as plt
-from cv2_plt_imshow import cv2_plt_imshow, plt_format
+
+from .models import Lavaggio
+from django.shortcuts import render
+
 
 import cv2 as cv
 
@@ -55,49 +57,15 @@ class LavaggioCreateView(LoginRequiredMixin, CreateView): # new
         form.instance.utente = self.request.user
         return super().form_valid(form)
 
-def LavaggioCameoView(request): # new
-    model = Lavaggio
-    # template_name = 'lavaggio_cameo.html'
-    washCameo = Cameo()
-    if __name__ == "__main__":
-        washCameo.run()
-    return render(request, "lavaggio_cameo.html")
 
-def LavaggioCapture(request):
-    model = Lavaggio
-    # if __name__ == "__main__":
-    #if (request.GET.get('btnstart')):
-    cap = cv.VideoCapture(0)
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH) + 0.5)
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
-    size = (width, height)
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
-    out = cv.VideoWriter('record_video.avi', fourcc, 30.0, size)
+def WebCamCapture():
+    streamResponse = StreamingHttpResponse(gen(VideoCamera()),
+                                           content_type='multipart/x-mixed-replace; boundary=frame')
+    return streamResponse
 
-    while (True):
-        ret, frame = cap.read()
-        cv.startWindowThread()
-        cv.namedWindow("preview", cv.WINDOW_AUTOSIZE)
-        cv.imshow('preview', frame)
-        cv.waitKey(1000)
-        out.write(frame)
-            # video = cv.imread(out)
-            # cv2_plt_imshow(video)
-        if cv.waitKey(1) == 27 & 0xFF == ord('q'):
-            break
 
-    context = {'out': out}
+def provaView(request):
+    resp = WebCamCapture()
+    template_name = 'lavaggio_webcam.html'
+    return render(request, template_name)
 
-    cap.release()
-    out.release()
-    if cv.waitKey() & 0xFF == ord('q'):
-        cv.destroyAllWindows()
-    return render('lavaggio_capture.html', context)
-    # return render(request, "lavaggio_list.html")
-
-"""
-def request_page(request):
-  if(request.GET.get('btnstart')):
-    mypythoncode.mypythonfunction( int(request.GET.get('mytextbox')) )
-return render(request,'lavaggio_capture.html')
-"""
