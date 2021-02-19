@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.views.generic.base import TemplateView # new
+from django.http import StreamingHttpResponse
+from .camera import VideoCamera, gen
 
 urlpatterns = [
     path('backend/', admin.site.urls),   # 'admin/' rischioso, modificare per motivi di sicurezza
@@ -25,6 +27,8 @@ urlpatterns = [
     path('lavaggi/', include('lavaggi.urls')), # new
     # path('', TemplateView.as_view(template_name='home-trial.html'), name='home'), # new
     path('', include('pages.urls')),  # new
+    path('capture/', lambda r: StreamingHttpResponse(gen(VideoCamera()),
+                                                     content_type='multipart/x-mixed-replace; boundary=frame')),
 ]
 
 """

@@ -4,10 +4,14 @@ from .views import (
     LavaggioUpdateView, # new
     LavaggioDetailView, # new
     LavaggioDeleteView, # new
-    LavaggioCreateView, # new
-    LavaggioCameoView,
-    LavaggioCapture
+    LavaggioCreateView,
+    LavaggioWebcamView,
+    WebCamCapture
+    # LavaggioCapture
+
 )
+
+from django.views.generic.base import TemplateView # new
 
 urlpatterns = [
     path('<int:pk>/edit/',
@@ -17,7 +21,6 @@ urlpatterns = [
     path('<int:pk>/delete/',
          LavaggioDeleteView.as_view(), name='lavaggio_delete'), # new
     path('new/', LavaggioCreateView.as_view(), name='lavaggio_new'), # new
-    path('cameo/', LavaggioCameoView, name='lavaggio_cameo'),
-    path('capture/', LavaggioCapture, name='lavaggio_capture'),
+    # path('capture', TemplateView.as_view(template_name='lavaggio_webcam.html'), name='lavaggio_webcam'), # new
     path('', LavaggioListView.as_view(), name='lavaggio_list'),
 ]

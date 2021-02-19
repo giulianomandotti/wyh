@@ -4,11 +4,12 @@ from django.views.generic.edit import UpdateView, DeleteView, CreateView # new
 from django.urls import reverse_lazy # new
 
 from django.http import StreamingHttpResponse
-from camera import VideoCamera, gen
+from .camera import VideoCamera, gen
 from django.shortcuts import render
 
 from .models import Lavaggio
 from django.shortcuts import render
+from requests import request
 
 
 import cv2 as cv
@@ -64,8 +65,9 @@ def WebCamCapture():
     return streamResponse
 
 
-def provaView(request):
+def LavaggioWebcamView():
     resp = WebCamCapture()
     template_name = 'lavaggio_webcam.html'
-    return render(request, template_name)
+    # return render(request, template_name)
+    return resp
 
