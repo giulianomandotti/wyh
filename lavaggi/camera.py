@@ -34,13 +34,11 @@ def gen(camera):
     fourcc = cv2.VideoWriter_fourcc(*'MP4V')
     out = cv2.VideoWriter(FILE_OUTPUT, fourcc, 20.0, (int(width), int(height)))
 
-    # Define the codec and create VideoWriter object
-    # fourcc = cv2.VideoWriter_fourcc(*'MP4V')
-    # out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
-
     while True:
             frame = camera.get_frame()[0]
             saveframe = camera.get_frame()[1]
+            yield frame
+            # yield " " * 1024  # Encourage browser to render incrementally
             yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
             # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)

@@ -9,18 +9,10 @@
       <div class="col-3">
       </div>
       <div class="col-6">
-        <div class="jumbotron">
-          <video style="display:block; margin: 0 auto;" controls autoplay playsinline></video>
-          <!--<p><a href="{% url 'logout' %}">Log Out</a></p>-->
-        </div>
-        <div class="wrapperRec">
-          <button class="btn btn-success" id="btn-start-recording">Start</button>
-          <button class="btn btn-danger" id="btn-stop-recording" disabled>Stop</button>
-        </div>
-     </div>
-      <div class="col-3">
-          <button type="submit" value="TestCapture" onclick="location.href='{% url 'lavaggio_list' %}'"
-                  name='mybtn'>Nuovo Lavaggio</button>
+          <a href="{% url 'capture' %}" target="_blank">
+              <button type="button" class="btn btn-info">Nuovo Lavaggio</button>
+            </a>
+          <p>Per fermare registrazione premi tasto "x" sulla tastiera</p>
       </div>
     </div>
 

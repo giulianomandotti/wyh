@@ -3,13 +3,14 @@ from django.views.generic import ListView, DetailView # new
 from django.views.generic.edit import UpdateView, DeleteView, CreateView # new
 from django.urls import reverse_lazy # new
 
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, HttpResponse
 from .camera import VideoCamera, gen
 from django.shortcuts import render
 
 from .models import Lavaggio
-from django.shortcuts import render
 from requests import request
+
+from django.views.decorators.http import condition
 
 
 import cv2 as cv
@@ -58,16 +59,16 @@ class LavaggioCreateView(LoginRequiredMixin, CreateView): # new
         form.instance.utente = self.request.user
         return super().form_valid(form)
 
-
-def WebCamCapture():
-    streamResponse = StreamingHttpResponse(gen(VideoCamera()),
+# @condition(etag_func=None)
+def WebCamCapture(request):
+    streamResponse = HttpResponse(gen(VideoCamera()),
                                            content_type='multipart/x-mixed-replace; boundary=frame')
     return streamResponse
 
-
-def LavaggioWebcamView():
-    resp = WebCamCapture()
+def LavaggioWebcamView(request):
+    resp = WebCamCapture(request)
     template_name = 'lavaggio_webcam.html'
-    # return render(request, template_name)
-    return resp
+    context = {'stream': resp}
+    return render(request, template_name, context)
+    # return resp
 
