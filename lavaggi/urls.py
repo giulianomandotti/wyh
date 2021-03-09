@@ -5,10 +5,6 @@ from .views import (
     LavaggioDetailView, # new
     LavaggioDeleteView, # new
     LavaggioCreateView,
-    LavaggioWebcamView,
-    WebCamCapture
-    # LavaggioCapture
-
 )
 
 from django.views.generic.base import TemplateView # new
@@ -23,7 +19,9 @@ urlpatterns = [
     path('<int:pk>/delete/',
          LavaggioDeleteView.as_view(), name='lavaggio_delete'), # new
     path('new/', LavaggioCreateView.as_view(), name='lavaggio_new'), # new
-    path('capture/', LavaggioWebcamView, name='capture'),
+    path('capture/', lambda r: StreamingHttpResponse(gen(VideoCamera()),
+                                                     content_type='multipart/x-mixed-replace; boundary=frame')),
+
     path('', LavaggioListView.as_view(), name='lavaggio_list'),
 ]
 

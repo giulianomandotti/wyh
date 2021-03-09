@@ -1,5 +1,7 @@
 import cv2
 import keyboard
+from django.template import loader, Context
+
 
 class VideoCamera(object):
     def __init__(self):
@@ -20,7 +22,7 @@ class VideoCamera(object):
         # so we must encode it into JPEG in order to correctly display the
         # video stream.
         ret, jpeg = cv2.imencode('.jpg', image)
-        retlist = [jpeg.tobytes(), image]
+        retlist = [jpeg.tobytes(), image, jpeg]
         return retlist
 
 
@@ -37,11 +39,8 @@ def gen(camera):
     while True:
             frame = camera.get_frame()[0]
             saveframe = camera.get_frame()[1]
-            yield frame
-            # yield " " * 1024  # Encourage browser to render incrementally
-            yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-            # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            img = camera.get_frame()[2]
+            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
             out.write(saveframe)
              
             # if cv2.waitKey(1) & 0xFF == ord('a'):

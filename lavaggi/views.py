@@ -7,19 +7,23 @@ from django.http import StreamingHttpResponse, HttpResponse
 from .camera import VideoCamera, gen
 from django.shortcuts import render
 
+
 from .models import Lavaggio
-from requests import request
-
-from django.views.decorators.http import condition
 
 
-import cv2 as cv
+import cv2
 
-class LavaggioListView(LoginRequiredMixin,ListView):
+
+
+class LavaggioListView(LoginRequiredMixin, ListView):
     model = Lavaggio
     template_name = 'lavaggio_list.html'
     login_url = 'login'
-    # paginate_by = 5
+    HttpResponse.streaming = True
+
+    streamResponse = StreamingHttpResponse(gen(VideoCamera()),
+                                           content_type='multipart/x-mixed-replace; boundary=frame')
+
 
 class LavaggioDetailView(DetailView): # new
     model = Lavaggio
@@ -61,7 +65,7 @@ class LavaggioCreateView(LoginRequiredMixin, CreateView): # new
 
 # @condition(etag_func=None)
 def WebCamCapture(request):
-    streamResponse = HttpResponse(gen(VideoCamera()),
+    streamResponse = StreamingHttpResponse(gen(VideoCamera()),
                                            content_type='multipart/x-mixed-replace; boundary=frame')
     return streamResponse
 
@@ -69,6 +73,7 @@ def LavaggioWebcamView(request):
     resp = WebCamCapture(request)
     template_name = 'lavaggio_webcam.html'
     context = {'stream': resp}
-    return render(request, template_name, context)
-    # return resp
+    # return render(request, template_name, context)
+    return resp
+
 
